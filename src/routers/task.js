@@ -37,23 +37,15 @@ router.get('/tasks/:id', async (req, res) => {
         res.status(500).send()
     }
 })
-// router.get('/tasks/:id', async (req, res) => {
-//     var _ids = req.params.id
-//     var count = Object.keys(_ids).length;
-//     for(let i=0; i < count ; i++){
-//     try {
-//         const task = await Task.findById(_ids)
 
-//         if (!task) {
-//             return res.status(404).send()
-//         }
+router.get('/tasks',async(req,res)=>{
+    const typeOfTask=req.query.typeOfTask;
+    const xx =await Task.find({
+        "typeOfTask": flag                                // search all post with given query string (here we are searching by flag)
+    })
+    res.send(xx)
+})
 
-//         res.send(task)
-//     } catch (e) {
-//         res.status(500).send()
-//     }
-// }
-// })
 
 router.patch('/tasks/:id', async (req, res) => {
     const updates = Object.keys(req.body)
@@ -91,20 +83,5 @@ router.delete('/tasks/:id', async (req, res) => {
     }
 })
 
-// router.get('/delete-task', function(req, res){
-    
-//     var ids= req.params.id;
-
-//     var count = Object.keys(ids).length;
-//     for(let i=0; i < count ; i++){
-        
-//         Task.findByIdAndDelete(Object.keys(id)[i], function(err){
-//         if(err){
-//             console.log('error in deleting task');
-//             }
-//         })
-//     }
-//     return res.redirect('back'); 
-// })
 
 module.exports = router

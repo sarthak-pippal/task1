@@ -1,65 +1,81 @@
 const express = require('express')
 const Group = require('../models/group')
+const Task = require('../models/task')
 const router = new express.Router()
+
+
+router.get('/creategroup', async (req, res) => {
+    console.log("get request ")
+    try {
+        
+        const group = await Group.find({
+            
+        })
+        res.send(group)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
 
 
 router.post('/creategroup', async (req, res) => {
     const group = new Group(req.body)
-//console.log("tttt")
+
     try {
+        
         await group.save()
         res.status(201).send(group)
+        
     } catch (e) {
         res.status(400).send(e)
     }
 })
 
 
-router.delete('/creategroup', async (req, res) => {
-    try {
-        var id = req.query;
-        var count = Object.keys(id).length;
-        for(let i=0; i < count ; i++){
-        const task = await Task.findByIdAndDelete(Object.keys(id)[i])
+router.post('/deletegroup',async(req,res)=>{
+    
+    const group = await Group.find({name:req.body.name});
+    console.log(group)
 
-        if (!task) {
-            res.status(404).send()
-        }
+    var arr=group[0].userIds
+   
+    for(var i=0; i<arr.length; i++ )
+    {
+       
+       await Task.findByIdAndDelete(arr[i] , function(err){
+        if(err){
+            console.log('error in deleting task');
+            }
+        })
+    }
+    const result=await Group.deleteMany({name:req.body.name})                // delete all posts
+    res.json(result)
 
-        res.send(task)
-    }
-    } catch (e) {
-        res.status(500).send()
-    }
- 
+    res.status(200).send()
 })
 
-    // router.patch('/creategroup', async (req, res) => {
-    //     // var count = Object.keys(req.body)[0].length;
+router.post('/updategroup',async(req,res)=>{
+    
+    const group = await Group.find({name:req.body.name})
+    
+    var arr=group[0].userIds
+    
+    for(var i=0; i<arr.length; i++ )
+    {
        
-    //     // for(let i=0; i < count ; i++){
-    //     // const updates = Object.keys(req.body)
-    //     const allowedUpdates = ['description', 'completed','date']
-    //     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
-    
-    //     if (!isValidOperation) {
-    //         return res.status(400).send({ error: 'Invalid updates!' })
-    //     }
-    
-    //     try {
-    //         const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    
-    //         if (!task) {
-    //             return res.status(404).send()
-    //         }
-    
-    //         res.send(task)
-    //     } catch (e) {
-    //         res.status(400).send(e)
-    //     }
-    //}
-   //})
+       await Task.findByIdAndUpdate(arr[i] ,{completed:"true"}, function(err){
+        if(err){
+            console.log('error in updating task');
+            }
+         else{
+             console.log("updated")
+         }
 
+        })
+    }
+    
+    res.status(200).send()
+})
 
 
 module.exports = router
