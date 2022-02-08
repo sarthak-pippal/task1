@@ -4,17 +4,31 @@ const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 const groupRouter = require('./routers/group')
 
+const Task = require('./models/task')
+
 const app = express()
 const port = process.env.PORT || 80
 
-app.use(express.static("./views"));
+app.use(express.static("../views"));
 app.use(express.urlencoded());
 
 //frontend
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', 'views');
 
+app.get('/', function(req, res){
+    Task.find({}, function(err, task){
+        if(err){
+            console.log('Error in fetching tasks from db');
+            return;
+        }
 
+        return res.render('home', {
+            tittle: "Home",
+            task: task
+        });
+    }
+)});
 
 app.use(express.json())
 app.use(userRouter)

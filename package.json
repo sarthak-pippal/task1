@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.6",
     "express": "^4.16.4",
     "mongodb": "^3.1.10",
     "mongoose": "^5.13.14",
@@ -19,8 +20,7 @@
   "devDependencies": {
     "nodemon": "^1.18.9"
   },
-"engines":{
-  "node" : "v17.3.1"
-}
-
+  "engines": {
+    "node": "v17.3.1"
+  }
 }

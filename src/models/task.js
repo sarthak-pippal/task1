@@ -7,17 +7,17 @@ const Task = mongoose.model('Task', {
         trim: true
     },
     completed: {
-        type: Boolean,
-        default: false
+        type: String,
+        default: "not completed"
     },
     date: {
         type: Date,
         required : true
-    },
-    typeOfTask:{
-        type: String,
-        default: "normal"
     }
+    // typeOfTask:{
+    //     type: String,
+    //     default: "normal"
+    // }
 })
 
 module.exports = Task

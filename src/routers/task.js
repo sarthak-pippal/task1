@@ -7,10 +7,12 @@ router.post('/tasks', async (req, res) => {
 
     try {
         await task.save()
-        res.status(201).send(task)
+        //res.status(201).send(task)
+        
     } catch (e) {
         res.status(400).send(e)
     }
+    return res.redirect('back');
 })
 
 router.get('/tasks', async (req, res) => {
@@ -69,18 +71,19 @@ router.patch('/tasks/:id', async (req, res) => {
     }
 })
 
-router.delete('/tasks/:id', async (req, res) => {
-    try {
-        const task = await Task.findByIdAndDelete(req.params.id)
+router.post('/deleteTask', async (req, res) => {
+    var id = req.body;
 
-        if (!task) {
-            res.status(404).send()
-        }
-
-        res.send(task)
-    } catch (e) {
-        res.status(500).send()
+    var count = Object.keys(id).length;
+    for(let i=0; i < count ; i++){
+        
+        Task.findByIdAndDelete(Object.keys(id)[i], function(err){
+        if(err){
+            console.log('error in deleting task');
+            }
+        })
     }
+    return res.redirect('back'); 
 })
 
 

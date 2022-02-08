@@ -36,13 +36,14 @@
                 <tbody>
                     <tr>
                       <td> <input type="text" name="description"placeholder="What do you need to do?" required></input></th>
-                      <td >  <select name="category" required>
+                        <td> <input type="text" name="completed"placeholder="completed/not completed" required></input></th>
+                      <!-- <td >  <select name="completed" required>
 
                         <option>COMPLETED</option>
                         <option>NOT COMPLETED</option>
                         
 
-                    </select></th>
+                    </select></th> -->
                       <td > <input type="date" name="date" required></th>
                       <td ><input type="submit"  class="btn btn-success"id="add" value="ADD TASK"></th>
                     </tr>
@@ -55,7 +56,7 @@
         <div>          
                 <h1 align="center">TASKS LIST</h1>
 
-                <form action="/delete-task" method="GET">
+                <form action="/deleteTask" method="POST">
                     <table class="table">
                         <thead>
                             <tr>
@@ -72,7 +73,7 @@
 
                                <td> <input type="checkbox" name="<%= i._id %>" ></td>
                                <td> <p id="task-description"><%= i.description %></td>
-                                <td><p id="task-category"></p>: <%= i.category %></td>
+                                <td><p id="task-category"></p>: <%= i.completed %></td>
                                 <td><p id="due-date">: <%= i.date %></p></td>
 </tr>
                     
