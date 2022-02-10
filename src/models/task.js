@@ -12,7 +12,7 @@ const Task = mongoose.model('Task', {
     },
     date: {
         type: Date,
-        required : true
+        required : false
     }
     // typeOfTask:{
     //     type: String,
