@@ -4,7 +4,7 @@ const Task = require('../models/task')
 const router = new express.Router()
 
 
-router.get('/creategroup', async (req, res) => {
+router.get('/getGroup', async (req, res) => {
     console.log("get request ")
     try {
         
@@ -18,7 +18,7 @@ router.get('/creategroup', async (req, res) => {
 })
 
 
-router.post('/creategroup', async (req, res) => {
+router.post('/createGroup', async (req, res) => {
     const group = new Group(req.body)
 
     try {
@@ -32,7 +32,7 @@ router.post('/creategroup', async (req, res) => {
 })
 
 
-router.post('/deletegroup',async(req,res)=>{
+router.post('/deleteGroup',async(req,res)=>{
     
     const group = await Group.find({name:req.body.name});
     console.log(group)
@@ -54,7 +54,7 @@ router.post('/deletegroup',async(req,res)=>{
     res.status(200).send()
 })
 
-router.post('/updategroup',async(req,res)=>{
+router.post('/updateGroup',async(req,res)=>{
     
     const group = await Group.find({name:req.body.name})
     

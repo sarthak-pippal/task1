@@ -74,6 +74,14 @@ useEffect(()=>{
       
   };
 
+  const urgentTask = (id) => {
+    console.log("tee")
+    Axios.put('http://localhost:8080/createGroup',{
+      id:id
+    });
+      
+  };
+
 
   return (
     <div className="App">
@@ -126,6 +134,7 @@ useEffect(()=>{
           }} />
           <button onClick={()=>{ updateTask(val._id) }} >Update</button>
           <button onClick={()=>{deleteTask(val._id)} } >Delete</button>
+          <button onClick={()=>{urgentTask(val._id)} } >Urgent</button>
         </div>
           );
         })}
