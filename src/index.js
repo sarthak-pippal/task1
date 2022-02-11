@@ -3,6 +3,7 @@ require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 const groupRouter = require('./routers/group')
+const group2Router = require('./routers/group2')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -64,4 +65,5 @@ app.get('/getTasks', async (req, res)=>{
 app.use(userRouter)
 app.use(taskRouter)
 app.use(groupRouter)
+app.use(group2Router)
 
