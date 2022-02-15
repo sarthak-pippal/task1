@@ -5,16 +5,18 @@ const router = new express.Router()
 
 var arr=[];
 
-router.get('/getGroup2', (req, res) => {
+router.get('/getGroup2', async(req, res) => {
     console.log("get request ")
     try {
-        res.send(arr)
+        //res.send(arr)
+        var arra=[];
         for(var i=0; i<arr.length;i++)
         {
-            console.log(arr[i])
+          const task = await Task.findById(arr[i])
+          arra.push(task);
         }
 
-        res.send(arr)
+        res.send(arra)
     } catch (e) {
         res.status(500).send()
     }
